@@ -89,6 +89,13 @@ public:
         oss << "(" << x << "," << y << "," << z << ")\n";
         return oss.str();
     }
+
+    double * toArray() {
+        static double a[3];
+        a[0] = x; a[1] = y; a[2] = z;
+        return a;
+    }
+
     void print() {
         std::cout << this->toString();
     }
