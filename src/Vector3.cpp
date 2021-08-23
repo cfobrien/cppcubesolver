@@ -83,6 +83,23 @@ public:
         return *this;
     }
 
+    // Static methods
+    static Vector3 zeros() {
+        return Vector3(0,0,0);
+    }
+    static Vector3 ones() {
+        return Vector3(1,1,1);
+    }
+    static Vector3 X() {
+        return Vector3(1,0,0);
+    }
+    static Vector3 Y() {
+        return Vector3(0,1,0);
+    }
+    static Vector3 Z() {
+        return Vector3(0,0,1);
+    }
+
     // Methods
     std::string toString() {
         std::ostringstream oss;
