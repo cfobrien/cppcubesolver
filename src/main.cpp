@@ -1,14 +1,20 @@
+#include <iostream>
 #include "Vector3.cpp"
 #include "RotationMatrix.cpp"
 
 int main(int argc, char **argv) {
     Vector3 v = Vector3(1,2,3);
-    v.print();
 
-    Vector3 axis = Vector3(0,0,1);
+    Vector3 axis = Vector3::Z();
     double theta = 90.0;
     RotationMatrix m = RotationMatrix(axis, theta);
-    m.print();
+    m.toString();
+
+    std::cout << "rotating vector " << v.toString() << " by " << theta << " degrees around " << axis.toString() << "...\n";
+
+    Vector3 rotated = m * v;
+
+    std::cout << "rotated vector: " << rotated.toString() << "\n";
 
     return 0;
 }
