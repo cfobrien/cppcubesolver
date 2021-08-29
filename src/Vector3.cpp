@@ -80,12 +80,9 @@ public:
     bool operator == (const Vector3 &v) const {
         const Vector3 &u = *this;
         Vector3 error = (u-v).abs();
-        Vector3 biggest_elements = Vector3(
-            (u.x >= v.x) * u.x + (v.x > u.x) * v.x,
-            (u.y >= v.y) * u.y + (v.y > u.y) * v.y,
-            (u.z >= v.z) * u.z + (v.z > u.z) * v.z
-        );
-        if (error <= biggest_elements * VECT_COMP_TOLERANCE) {
+        if (error.x <= VECT_COMP_TOLERANCE &&
+            error.y <= VECT_COMP_TOLERANCE &&
+            error.z <= VECT_COMP_TOLERANCE) {
             return true;
         } else {
             return false;
