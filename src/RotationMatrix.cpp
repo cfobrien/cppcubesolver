@@ -1,12 +1,15 @@
-#include "Vector3.cpp"
+#include "Vector3.h"
 #include <cmath>
 #include <iostream>
 #include <sstream>
 
+#define NROWS 3
+#define NCOLS 3
+
 class RotationMatrix {
 private:
-    static const char NROWS = 3;
-    static const char NCOLS = 3;
+    // static const char NROWS = 3;
+    // static const char NCOLS = 3;
 public:
     double m[NROWS*NCOLS];
 
@@ -52,6 +55,8 @@ public:
         return Vector3(v_arr);
     }
 
+    friend Vector3 operator * (Vector3 /*const*/ &, RotationMatrix const &);
+
 
     RotationMatrix identity() {
         char row = -1;
@@ -86,3 +91,15 @@ public:
         std::cout << this->toString();
     }
 };
+
+Vector3 operator * (Vector3 /*const*/ &u, RotationMatrix &rm) {
+    double v_arr[NCOLS];
+    double * u_arr = u.toArray();
+
+    for (char col = 0; col < NCOLS; col++) {
+        for (char row = 0; row < NROWS; row++) {
+            v_arr[col] += u_arr[row] * rm.m[NCOLS*row+col];
+        }
+    }
+    return Vector3(v_arr);
+}

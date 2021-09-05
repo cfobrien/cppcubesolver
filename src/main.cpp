@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Vector3.cpp"
+#include "Vector3.h"
 #include "RotationMatrix.cpp"
 
 int main(int argc, char **argv) {
