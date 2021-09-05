@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Vector3.h"
-#include "RotationMatrix.cpp"
+#include "RotationMatrix.h"
 
 int main(int argc, char **argv) {
     Vector3 u, v;
