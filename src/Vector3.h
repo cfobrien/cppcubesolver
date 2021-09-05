@@ -21,11 +21,41 @@ public:
 
     // Operator overloading
     Vector3 operator + (const Vector3 &v) const;
+    Vector3 operator + (const double &d) const;
+    friend Vector3 operator + (double const& d, Vector3 const& v) {
+        return Vector3(
+            this.x+d,
+            this.y+d,
+            this.z+d
+        );
+    }
     Vector3 operator - (const Vector3 &v) const;
+    Vector3 operator - (const double &d) const;
+    friend Vector3 operator - (double const& d, Vector3 const& v) {
+        return Vector3(
+            this.x-d,
+            this.y-d,
+            this.z-d
+        );
+    }
     Vector3 operator * (const Vector3 &v) const;
     Vector3 operator * (const double &d) const;
+    friend Vector3 operator * (double const& d, Vector3 const& v) {
+        return Vector3(
+            this.x*d,
+            this.y*d,
+            this.z*d
+        );
+    }
     Vector3 operator / (const Vector3 &v) const;
     Vector3 operator / (const double &d) const;
+    friend Vector3 operator / (double const& d, Vector3 const& v) {
+        return Vector3(
+            this.x/d,
+            this.y/d,
+            this.z/d
+        );
+    }
     bool operator < (const Vector3 &v) const;
     bool operator <= (const Vector3 &v) const;
     bool operator > (const Vector3 &v) const;

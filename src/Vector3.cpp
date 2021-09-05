@@ -17,9 +17,15 @@ Vector3::Vector3(double * a): x(a[0]), y(a[1]), z(a[2]) {}
 Vector3 Vector3::operator + (const Vector3 &v) const {
     return Vector3(x+v.x,y+v.y,z+v.z);
 }
+Vector3 Vector3::operator + (double const& d) const {
+    return Vector3(x+d,y+d,z+d);
+}
 
 Vector3 Vector3::operator - (const Vector3 &v) const {
     return Vector3(x-v.x,y-v.y,z-v.z);
+}
+Vector3 Vector3::operator - (double const& d) const {
+    return Vector3(x-d,y-d,z-d);
 }
 
 Vector3 Vector3::operator * (const Vector3 &v) const {
