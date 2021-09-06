@@ -5,6 +5,8 @@
 #include <iostream>
 #include <sstream>
 
+RotationMatrix::RotationMatrix() {}
+
 RotationMatrix::RotationMatrix(Vector3 axis, double theta) {
     Vector3 normalized = axis.normalized();
     double x = normalized.x;
@@ -39,21 +41,36 @@ Vector3 RotationMatrix::operator * (Vector3 u) const {
     }
     return Vector3(v_arr);
 }
+Vector3 operator * (Vector3 u, RotationMatrix const& rm) {
+    double v_arr[NCOLS];
+    double * u_arr = u.toArray();
 
-RotationMatrix RotationMatrix::identity() {
-    char row = -1;
-    for (char i = 0; i < NROWS*NCOLS; i++) {
-        // row in increments at the start of each row
-        row += (int)(i/NCOLS == ceil(i/NCOLS));
-
-        if ((i-row)/NCOLS == ceil((i-1)/NCOLS)) {
-            m[i] = 1.0;
-            std::cout << i << std::endl;
-        } else {
-            m[i] = 0.0;
+    for (char col = 0; col < NCOLS; col++) {
+        for (char row = 0; row < NROWS; row++) {
+            v_arr[col] += u_arr[row] * rm.m[NCOLS*row+col];
         }
     }
-    return *this;
+    return Vector3(v_arr);
+}
+std::ostream& operator << (std::ostream& os, RotationMatrix rm) {
+    os << rm.toString();
+    return os;
+}
+
+RotationMatrix RotationMatrix::identity() {
+    RotationMatrix rm = RotationMatrix();
+    int row = -1;
+    int i;
+    for (i = 0; i < NROWS*NCOLS; i++) {
+        if (!(i%NCOLS))
+            row++;
+        if (!(i%(NCOLS+row)) || i+1==NROWS*NCOLS) {
+            rm.m[i] = 1.0;
+        } else {
+            rm.m[i] = 0.0;
+        }
+    }
+    return rm;
 }
 
 std::string RotationMatrix::toString() {
@@ -68,19 +85,3 @@ std::string RotationMatrix::toString() {
     }
     return oss.str();
 }
-
-void RotationMatrix::print() {
-    std::cout << this->toString();
-}
-
-// Vector3 operator * (Vector3 /*const*/ &u, RotationMatrix &rm) {
-//     double v_arr[NCOLS];
-//     double * u_arr = u.toArray();
-//
-//     for (char col = 0; col < NCOLS; col++) {
-//         for (char row = 0; row < NROWS; row++) {
-//             v_arr[col] += u_arr[row] * rm.m[NCOLS*row+col];
-//         }
-//     }
-//     return Vector3(v_arr);
-// }

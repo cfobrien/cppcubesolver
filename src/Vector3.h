@@ -1,5 +1,5 @@
-#ifndef __VECTOR3__
-#define __VECTOR3__
+#ifndef __VECTOR3
+#define __VECTOR3
 
 #include <string>
 #include <iostream>
@@ -22,40 +22,16 @@ public:
     // Operator overloading
     Vector3 operator + (const Vector3 &v) const;
     Vector3 operator + (const double &d) const;
-    friend Vector3 operator + (double const& d, Vector3 const& v) {
-        return Vector3(
-            this.x+d,
-            this.y+d,
-            this.z+d
-        );
-    }
+    friend Vector3 operator + (double const& d, Vector3 const& v);
     Vector3 operator - (const Vector3 &v) const;
     Vector3 operator - (const double &d) const;
-    friend Vector3 operator - (double const& d, Vector3 const& v) {
-        return Vector3(
-            this.x-d,
-            this.y-d,
-            this.z-d
-        );
-    }
+    friend Vector3 operator - (double const& d, Vector3 const& v);
     Vector3 operator * (const Vector3 &v) const;
     Vector3 operator * (const double &d) const;
-    friend Vector3 operator * (double const& d, Vector3 const& v) {
-        return Vector3(
-            this.x*d,
-            this.y*d,
-            this.z*d
-        );
-    }
+    friend Vector3 operator * (double const& d, Vector3 const& v);
     Vector3 operator / (const Vector3 &v) const;
     Vector3 operator / (const double &d) const;
-    friend Vector3 operator / (double const& d, Vector3 const& v) {
-        return Vector3(
-            this.x/d,
-            this.y/d,
-            this.z/d
-        );
-    }
+    friend Vector3 operator / (double const& d, Vector3 const& v);
     bool operator < (const Vector3 &v) const;
     bool operator <= (const Vector3 &v) const;
     bool operator > (const Vector3 &v) const;
@@ -68,6 +44,7 @@ public:
     Vector3& operator *= (const double &d);
     Vector3& operator /= (const Vector3 &v);
     Vector3& operator /= (const double &d);
+    friend std::ostream& operator << (std::ostream& os, Vector3 v);
 
     // Static methods
     static Vector3 zeros();
@@ -80,10 +57,6 @@ public:
     std::string toString();
 
     double * toArray();
-
-    //TODO: overload << operator instead
-    void print();
-    void println();
 
     double norm();
 

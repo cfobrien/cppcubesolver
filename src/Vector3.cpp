@@ -20,6 +20,9 @@ Vector3 Vector3::operator + (const Vector3 &v) const {
 Vector3 Vector3::operator + (double const& d) const {
     return Vector3(x+d,y+d,z+d);
 }
+Vector3 operator + (double const& d, Vector3 const& v) {
+    return Vector3(v.x+d,v.y+d,v.z+d);
+}
 
 Vector3 Vector3::operator - (const Vector3 &v) const {
     return Vector3(x-v.x,y-v.y,z-v.z);
@@ -27,21 +30,28 @@ Vector3 Vector3::operator - (const Vector3 &v) const {
 Vector3 Vector3::operator - (double const& d) const {
     return Vector3(x-d,y-d,z-d);
 }
+Vector3 operator - (double const& d, Vector3 const& v) {
+    return Vector3(v.x-d,v.y-d,v.z-d);
+}
 
 Vector3 Vector3::operator * (const Vector3 &v) const {
     return Vector3(x*v.x,y*v.y,z*v.z);
 }
-
 Vector3 Vector3::operator * (const double &d) const {
     return Vector3(x*d,y*d,z*d);
+}
+Vector3 operator * (double const& d, Vector3 const& v) {
+    return Vector3(v.x*d,v.y*d,v.z*d);
 }
 
 Vector3 Vector3::operator / (const Vector3 &v) const {
     return Vector3(x/v.x,y/v.y,z/v.z);
 }
-
 Vector3 Vector3::operator / (const double &d) const {
     return Vector3(x/d,y/d,z/d);
+}
+Vector3 operator / (double const& d, Vector3 const& v) {
+    return Vector3(v.x/d,v.y/d,v.z/d);
 }
 
 bool Vector3::operator < (const Vector3 &v) const {
@@ -117,7 +127,6 @@ Vector3& Vector3::operator *= (const Vector3 &v) {
     z *= v.z;
     return *this;
 }
-
 Vector3& Vector3::operator *= (const double &d) {
     x *= d;
     y *= d;
@@ -131,12 +140,16 @@ Vector3& Vector3::operator /= (const Vector3 &v) {
     z /= v.z;
     return *this;
 }
-
 Vector3& Vector3::operator /= (const double &d) {
     x /= d;
     y /= d;
     z /= d;
     return *this;
+}
+
+std::ostream& operator << (std::ostream& os, Vector3 v) {
+    os << v.toString();
+    return os;
 }
 
 // Static methods
@@ -167,14 +180,6 @@ double * Vector3::toArray() {
     static double a[3];
     a[0] = x; a[1] = y; a[2] = z;
     return a;
-}
-
-void Vector3::print() {
-    std::cout << this->toString();
-}
-
-void Vector3::println() {
-    std::cout << this->toString() << "\n";
 }
 
 double Vector3::norm() {

@@ -1,3 +1,3 @@
-add_executable(cppcubesolvertest main.cpp Vector3_test.cpp)
+add_executable(cppcubesolvertest main.cpp Vector3_test.cpp RotationMatrix_test.cpp)
 add_test(NAME cppcubesolvertest COMMAND cppcubesolvertest)
 target_link_libraries(cppcubesolvertest PUBLIC cppcubesolverlib gtest)

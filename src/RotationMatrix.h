@@ -12,23 +12,15 @@
 class RotationMatrix {
 public:
     double m[NROWS*NCOLS];
+
+    RotationMatrix();
     RotationMatrix(Vector3 axis, double theta);
-    RotationMatrix identity();
+    static RotationMatrix identity();
     std::string toString();
-    void print();
 
     Vector3 operator * (Vector3 u) const;
-    friend Vector3 operator * (Vector3& u, RotationMatrix const& rm) {
-        double v_arr[NCOLS];
-        double * u_arr = u.toArray();
-
-        for (char col = 0; col < NCOLS; col++) {
-            for (char row = 0; row < NROWS; row++) {
-                v_arr[col] += u_arr[row] * rm.m[NCOLS*row+col];
-            }
-        }
-        return Vector3(v_arr);
-    }
+    friend Vector3 operator * (Vector3 u, RotationMatrix const& rm);
+    friend std::ostream& operator << (std::ostream& os, RotationMatrix rm);
 };
 
 #endif //__ROTATION_MATRIX
