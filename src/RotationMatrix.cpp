@@ -50,8 +50,8 @@ RotationMatrix::RotationMatrix(Vector3 axis, double theta) {
     m[15] = 1.0;
 }
 
-Vector3 RotationMatrix::operator * (Vector3& u) {
-    Vector3 v;
+Vector3 RotationMatrix::operator * (Vector3 u) {
+    Vector3 v = Vector3();
     for (char col = 0; col < NCOLS; col++) {
         for (char row = 0; row < NROWS; row++) {
             v[col] += u[row] * m[row*NCOLS + col];
@@ -59,8 +59,8 @@ Vector3 RotationMatrix::operator * (Vector3& u) {
     }
     return v;
 }
-Vector3 operator * (Vector3& u, RotationMatrix const& rm) {
-    Vector3 v;
+Vector3 operator * (Vector3 u, RotationMatrix const& rm) {
+    Vector3 v = Vector3();
     for (char col = 0; col < NCOLS; col++) {
         for (char row = 0; row < NROWS; row++) {
             v[col] += u[row] * rm.m[NCOLS*row+col];
@@ -73,14 +73,13 @@ std::ostream& operator << (std::ostream& os, RotationMatrix rm) {
     return os;
 }
 
-RotationMatrix& RotationMatrix::identity() {
+RotationMatrix RotationMatrix::identity() {
     RotationMatrix rm = RotationMatrix();
     int column_offset = 0;
     for (int i = 0; i < NROWS; i++) {
-        rm.m[i*NCOLS + column_offset++] = 1;
+        rm.m[i*NCOLS + column_offset++] = 1.0;
     }
-    RotationMatrix& rm_ref = rm;
-    return rm_ref;
+    return rm;
 }
 
 

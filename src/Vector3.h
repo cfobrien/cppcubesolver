@@ -51,11 +51,11 @@ public:
     double& operator[](int);
 
     // Static methods
-    static Vector3& zeros();
-    static Vector3& ones();
-    static Vector3& X();
-    static Vector3& Y();
-    static Vector3& Z();
+    static Vector3 zeros();
+    static Vector3 ones();
+    static Vector3 X();
+    static Vector3 Y();
+    static Vector3 Z();
 
     // Methods
     std::string toString();

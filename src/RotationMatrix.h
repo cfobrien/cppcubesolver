@@ -15,11 +15,11 @@ public:
 
     RotationMatrix();
     RotationMatrix(Vector3 axis, double theta);
-    static RotationMatrix& identity();
+    static RotationMatrix identity();
     std::string toString();
 
-    Vector3 operator * (Vector3& u);
-    friend Vector3 operator * (Vector3& u, RotationMatrix const& rm);
+    Vector3 operator * (Vector3 u);
+    friend Vector3 operator * (Vector3 u, RotationMatrix const& rm);
     friend std::ostream& operator << (std::ostream& os, RotationMatrix rm);
 };
 

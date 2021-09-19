@@ -22,8 +22,4 @@ namespace{
         EXPECT_EQ(Vector3(1,2,3), Vector3(-3,-2,-1)+Vector3(4,4,4));
         EXPECT_NE(Vector3(0,0,0), Vector3(1,2,3) + Vector3(0,0,0));
     }
-
-    TEST(FuncTest, toArray) {
-        EXPECT_EQ(Vector3(Vector3::ones().toArray()), Vector3::ones());
-    }
 }
