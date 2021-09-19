@@ -13,44 +13,56 @@ RotationMatrix::RotationMatrix(Vector3 axis, double theta) {
     double y = normalized.y;
     double z = normalized.z;
 
+    double x2 = x*x;
+    double y2 = y*y;
+    double z2 = z*z;
+
+    double xy = x*y;
+    double xz = x*z;
+    double yz = y*z;
+
     double c = std::cos(theta);
     double s = std::sin(theta);
     double t = 1-c;
 
-    m[0] = t*x*x + c;
-    m[1] = t*x*y - s*z;
-    m[2] = t*x*z + s*y;
+    m[0] = x2 + (y2 + z2)*c;
+    m[1] = xy*t - z*s;
+    m[2] = xz*t + y*s;
+    m[3] = 0.0;
 
-	m[3] = t*x*y + s*z;\
-	m[4] = t*y*y + c;
-	m[5] = t*y*z - s*x;
+	m[4] = xy*t + z*s;
+	m[5] = y2 + (x2 + z2)*c;
+	m[6] = yz*t - x*s;
+    m[7] = 0.0;
 
-	m[6] = t*x*z - s*y;
-	m[7] = t*y*z + s*x;
-	m[8] = t*z*z + c;
+	m[8] = xz*t - y*s;
+	m[9] = yz*t + x*s;
+	m[10] = z2 + (x2 + y2)*c;
+    m[11] = 0.0;
+
+    m[12] = 0.0;
+    m[13] = 0.0;
+    m[14] = 0.0;
+    m[15] = 1.0;
 }
 
-Vector3 RotationMatrix::operator * (Vector3 u) const {
-    double v_arr[NCOLS];
-    double * u_arr = u.toArray();
-
+Vector3 RotationMatrix::operator * (Vector3& u) {
+    Vector3 v;
     for (char col = 0; col < NCOLS; col++) {
         for (char row = 0; row < NROWS; row++) {
-            v_arr[col] += u_arr[row] * m[NCOLS*row+col];
+            v[col] += u[row] * m[row*NCOLS + col];
         }
     }
-    return Vector3(v_arr);
+    return v;
 }
-Vector3 operator * (Vector3 u, RotationMatrix const& rm) {
-    double v_arr[NCOLS];
-    double * u_arr = u.toArray();
-
+Vector3 operator * (Vector3& u, RotationMatrix const& rm) {
+    Vector3 v;
     for (char col = 0; col < NCOLS; col++) {
         for (char row = 0; row < NROWS; row++) {
-            v_arr[col] += u_arr[row] * rm.m[NCOLS*row+col];
+            v[col] += u[row] * rm.m[NCOLS*row+col];
         }
     }
-    return Vector3(v_arr);
+    return v;
 }
 std::ostream& operator << (std::ostream& os, RotationMatrix rm) {
     os << rm.toString();
@@ -76,10 +88,10 @@ RotationMatrix RotationMatrix::identity() {
 std::string RotationMatrix::toString() {
     std::ostringstream oss;
     int i, j;
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < NROWS; i++) {
         oss << "|";
-        for (j = 0; j < 3; j++) {
-            oss << m[i*NROWS+j];
+        for (j = 0; j < NCOLS; j++) {
+            oss << m[i*NROWS+j] << " ";
         }
         oss << "|\n";
     }

@@ -3,15 +3,18 @@
 #include "RotationMatrix.h"
 
 int main(int argc, char **argv) {
-    Vector3 u, v;
+    RotationMatrix rm1 = RotationMatrix(Vector3::X(), M_PI/4);
+    // std::cout << rm1;
 
-    Vector3 x = Vector3::X();
-    std::cout << x << std::endl;
+    Vector3 v1 = Vector3::Y();
+    // std::cout << v1 << std::endl;
+    // std::cout << "-------------------" << std::endl;
+    std::cout << v1 * rm1 << std::endl;
+    std::cout << v1 * rm1 << std::endl;
+    std::cout << "-------------------" << std::endl;
+    std::cout << rm1 * v1 << std::endl;
+    std::cout << rm1 * v1 << std::endl;
 
-    RotationMatrix rm = RotationMatrix::identity();
-    std::cout << rm << std::endl;
-
-    std::cout << (x*rm);
 
     return 0;
 }

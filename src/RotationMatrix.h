@@ -6,8 +6,8 @@
 #include <iostream>
 #include <sstream>
 
-#define NROWS 3
-#define NCOLS 3
+#define NROWS 4
+#define NCOLS 4
 
 class RotationMatrix {
 public:
@@ -18,8 +18,8 @@ public:
     static RotationMatrix identity();
     std::string toString();
 
-    Vector3 operator * (Vector3 u) const;
-    friend Vector3 operator * (Vector3 u, RotationMatrix const& rm);
+    Vector3 operator * (Vector3& u);
+    friend Vector3 operator * (Vector3& u, RotationMatrix const& rm);
     friend std::ostream& operator << (std::ostream& os, RotationMatrix rm);
 };
 
