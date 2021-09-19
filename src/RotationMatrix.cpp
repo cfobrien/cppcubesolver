@@ -5,7 +5,11 @@
 #include <iostream>
 #include <sstream>
 
-RotationMatrix::RotationMatrix() {}
+RotationMatrix::RotationMatrix() {
+    for (int i = 0; i < NCOLS*NROWS; i++) {
+        m[i] = 0.0;
+    }
+}
 
 RotationMatrix::RotationMatrix(Vector3 axis, double theta) {
     Vector3 normalized = axis.normalized();
@@ -69,21 +73,16 @@ std::ostream& operator << (std::ostream& os, RotationMatrix rm) {
     return os;
 }
 
-RotationMatrix RotationMatrix::identity() {
+RotationMatrix& RotationMatrix::identity() {
     RotationMatrix rm = RotationMatrix();
-    int row = -1;
-    int i;
-    for (i = 0; i < NROWS*NCOLS; i++) {
-        if (!(i%NCOLS))
-            row++;
-        if (!(i%(NCOLS+row)) || i+1==NROWS*NCOLS) {
-            rm.m[i] = 1.0;
-        } else {
-            rm.m[i] = 0.0;
-        }
+    int column_offset = 0;
+    for (int i = 0; i < NROWS; i++) {
+        rm.m[i*NCOLS + column_offset++] = 1;
     }
-    return rm;
+    RotationMatrix& rm_ref = rm;
+    return rm_ref;
 }
+
 
 std::string RotationMatrix::toString() {
     std::ostringstream oss;

@@ -152,21 +152,41 @@ std::ostream& operator << (std::ostream& os, Vector3 v) {
     return os;
 }
 
+double& Vector3::operator[](int index) {
+    switch(index) {
+        case 0: return x; break;
+        case 1: return y; break;
+        case 2: return z; break;
+        case 3: return one; break;
+        default: return zero;
+    }
+}
+
 // Static methods
-Vector3 Vector3::zeros() {
-    return Vector3(0,0,0);
+Vector3& Vector3::zeros() {
+    Vector3 v = Vector3(0,0,0);
+    Vector3& vref = v;
+    return vref;
 }
-Vector3 Vector3::ones() {
-    return Vector3(1,1,1);
+Vector3& Vector3::ones() {
+    Vector3 v = Vector3(1,1,1);
+    Vector3& vref = v;
+    return vref;
 }
-Vector3 Vector3::X() {
-    return Vector3(1,0,0);
+Vector3& Vector3::X() {
+    Vector3 v = Vector3(1,0,0);
+    Vector3& vref = v;
+    return vref;
 }
-Vector3 Vector3::Y() {
-    return Vector3(0,1,0);
+Vector3& Vector3::Y() {
+    Vector3 v = Vector3(0,1,0);
+    Vector3& vref = v;
+    return vref;
 }
-Vector3 Vector3::Z() {
-    return Vector3(0,0,1);
+Vector3& Vector3::Z() {
+    Vector3 v = Vector3(0,0,1);
+    Vector3& vref = v;
+    return vref;
 }
 
 // Methods
@@ -176,11 +196,11 @@ std::string Vector3::toString() {
     return oss.str();
 }
 
-double * Vector3::toArray() {
-    static double a[3];
-    a[0] = x; a[1] = y; a[2] = z;
-    return a;
-}
+// double * Vector3::toArray() {
+//     static double a[3];
+//     a[0] = x; a[1] = y; a[2] = z;
+//     return a;
+// }
 
 double Vector3::norm() {
     return std::sqrt(SQ(x)+SQ(y)+SQ(z));

@@ -10,6 +10,9 @@
 #define VECT_COMP_TOLERANCE 0.005
 
 class Vector3 {
+private:
+    double zero = 0.0;
+    double one = 1.0;
 public:
     double x, y, z;
 
@@ -45,18 +48,19 @@ public:
     Vector3& operator /= (const Vector3 &v);
     Vector3& operator /= (const double &d);
     friend std::ostream& operator << (std::ostream& os, Vector3 v);
+    double& operator[](int);
 
     // Static methods
-    static Vector3 zeros();
-    static Vector3 ones();
-    static Vector3 X();
-    static Vector3 Y();
-    static Vector3 Z();
+    static Vector3& zeros();
+    static Vector3& ones();
+    static Vector3& X();
+    static Vector3& Y();
+    static Vector3& Z();
 
     // Methods
     std::string toString();
 
-    double * toArray();
+    // double * toArray();
 
     double norm();
 

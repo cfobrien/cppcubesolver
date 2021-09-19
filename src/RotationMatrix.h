@@ -15,7 +15,7 @@ public:
 
     RotationMatrix();
     RotationMatrix(Vector3 axis, double theta);
-    static RotationMatrix identity();
+    static RotationMatrix& identity();
     std::string toString();
 
     Vector3 operator * (Vector3& u);
