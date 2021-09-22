@@ -24,6 +24,9 @@ Vector3 operator + (double const& d, Vector3 const& v) {
     return Vector3(v.x+d,v.y+d,v.z+d);
 }
 
+Vector3 Vector3::operator - () const {
+    return Vector3(-x, -y, -z);
+}
 Vector3 Vector3::operator - (const Vector3 &v) const {
     return Vector3(x-v.x,y-v.y,z-v.z);
 }
@@ -201,4 +204,20 @@ Vector3 Vector3::abs() {
         std::abs(y),
         std::abs(z)
     );
+}
+
+Vector3 Vector3::magnetize() {
+    return Vector3(
+        std::nearbyint(x),
+        std::nearbyint(y),
+        std::nearbyint(z)
+    );
+}
+
+bool Vector3::contains(Vector3 v) {
+    const Vector3 &u = *this;
+    Vector3 error = (u-v).abs();
+    return ((std::abs(v.x) > VECT_COMP_TOLERANCE) && (error.x <= VECT_COMP_TOLERANCE)) ||
+           ((std::abs(v.y) > VECT_COMP_TOLERANCE) && (error.y <= VECT_COMP_TOLERANCE)) ||
+           ((std::abs(v.z) > VECT_COMP_TOLERANCE) && (error.z <= VECT_COMP_TOLERANCE));
 }

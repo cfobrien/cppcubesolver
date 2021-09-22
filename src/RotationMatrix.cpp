@@ -6,12 +6,16 @@
 #include <sstream>
 
 RotationMatrix::RotationMatrix() {
+    axis = Vector3();
+    angle = 0.0;
     for (int i = 0; i < NCOLS*NROWS; i++) {
         m[i] = 0.0;
     }
 }
 
 RotationMatrix::RotationMatrix(Vector3 axis, double theta) {
+    this->axis = axis;
+    this->angle = theta;
     Vector3 normalized = axis.normalized();
     double x = normalized.x;
     double y = normalized.y;
@@ -81,7 +85,6 @@ RotationMatrix RotationMatrix::identity() {
     }
     return rm;
 }
-
 
 std::string RotationMatrix::toString() {
     std::ostringstream oss;

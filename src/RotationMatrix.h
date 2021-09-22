@@ -11,6 +11,8 @@
 
 class RotationMatrix {
 public:
+    Vector3 axis;
+    double angle;
     double m[NROWS*NCOLS];
 
     RotationMatrix();

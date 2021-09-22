@@ -7,7 +7,7 @@
 #include <cmath>
 
 #define SQ(x) std::pow(x,2.0)
-#define VECT_COMP_TOLERANCE 0.005
+#define VECT_COMP_TOLERANCE 0.01
 
 class Vector3 {
 private:
@@ -26,6 +26,7 @@ public:
     Vector3 operator + (const Vector3 &v) const;
     Vector3 operator + (const double &d) const;
     friend Vector3 operator + (double const& d, Vector3 const& v);
+    Vector3 operator - () const;
     Vector3 operator - (const Vector3 &v) const;
     Vector3 operator - (const double &d) const;
     friend Vector3 operator - (double const& d, Vector3 const& v);
@@ -60,13 +61,15 @@ public:
     // Methods
     std::string toString();
 
-    // double * toArray();
-
     double norm();
 
     Vector3 normalized();
 
     Vector3 abs();
+
+    Vector3 magnetize();
+
+    bool contains(Vector3 v);
 };
 
 #endif //__VECTOR3
